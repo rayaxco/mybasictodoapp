@@ -88,6 +88,36 @@ if (loginForm){
     });
 }
 
+const addForm=document.getElementById('addForm');
+if(addForm){
+    addForm.addEventListener('submit',async function(event){
+        event.preventDefault();
+        const form=event.target;
+        const formData=new FormData(form);
+        const data=Object.fromEntries(formData.entries());
+
+        console.log(typeof(data.priority));
+        payload={
+            title:data.title,
+            description:data.description,
+            priority:parseInt(data.priority),
+            complete:data.complete
+        }
+
+       try{
+            const response=await fetch('/todos/add-todo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+            if(response.ok){
+            console.log('write Successful');
+            window.location.href='todo-page';
+            }
+       }
+       catch(error){
+        console.log('error:',error);
+       }
+    });
+}
+
+
 function logout(){
     console.log(document.cookie);
     const cookies=document.cookie.split(';');
@@ -110,3 +140,82 @@ function logout(){
     }
 }
 
+const editForm=document.getElementById('editForm');
+if(editForm){
+    editForm.addEventListener('submit', async function(event){
+        event.preventDefault();
+        const form=event.target;
+        const formData=new FormData(form);
+        const data=Object.fromEntries(formData.entries());
+        console.log(data);
+
+        var url=window.location.pathname;
+        lastSlash=url.lastIndexOf('/');
+        var todo_id='';
+        for(let i=lastSlash+1;i<url.length;i++){
+            todo_id=todo_id+url[i];
+        }
+        console.log(typeof(todo_id));
+
+        payload2={
+            id:parseInt(todo_id),
+            title:data.title,
+            description:data.description,
+            priority:parseInt(data.priority),
+            complete:data.complete
+        }
+        try{
+            const response=await fetch('/todos/update-todo',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload2)});
+            if(response.ok){
+            console.log('write Successful');
+            window.location.href='/todos/todo-page';
+            }
+       }
+       catch(error){
+        console.log('error:',error);
+       }
+    });
+
+    const deleteTodo=document.getElementById('deleteButton');
+    if(deleteButton){
+        deleteButton.addEventListener('click',async function(delevent){
+            delevent.preventDefault();
+
+            var url=window.location.pathname;
+            lastSlash=url.lastIndexOf('/');
+            var todo_id='';
+            for(let i=lastSlash+1;i<url.length;i++){
+                todo_id=todo_id+url[i];
+            }
+            console.log(todo_id);
+            token=getCookie('access_token')
+
+             try{
+                const response=await fetch(`/todos/delete-todo/${todo_id}`,{method:'DELETE',headers:{'Authorization':`Bearer${token}`}});
+                if(response.ok){
+                    console.log('delete Successful');
+                    window.location.href='/todos/todo-page';
+                }
+             }
+             catch(error){
+                console.log('error:',error);
+             }
+        });
+    }
+
+}
+
+function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    };

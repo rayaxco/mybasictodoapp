@@ -18,6 +18,7 @@ class Todos(Base):
     __tablename__='todos'
     id=Column(Integer,primary_key=True,index=True)
     title=Column(String)
+    priority=Column(Integer)
     description=Column(String)
     complete=Column(Boolean,default=False)
     owner_id=Column(Integer,ForeignKey('users.id'))

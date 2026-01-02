@@ -1,0 +1,33 @@
+{%include 'layout.html'%}
+<div class="conatainer">
+    <form id="editForm">
+    <label>todo title</label><br>
+    <input type="text" name="title" value="{{todo.title}}" required><br>
+
+    <label>todo description</label><br>
+    <textarea rows="3" name="description"  required>{{todo.description}}</textarea><br>
+
+    <label>Priority</label><br>
+    <label>1</label>
+    <input type="radio" name="priority" value="1" required {%if todo.priority==1 %} checked {%else%} {% endif %}>
+    <label>2</label>
+    <input type="radio" name="priority" value="2" required {%if todo.priority==2 %} checked {%else%} {% endif %}>
+    <label>3</label>
+    <input type="radio" name="priority" value="3" required {%if todo.priority==3 %} checked {%else%} {% endif %}>
+    <label>4</label>
+    <input type="radio" name="priority" value="4" required {%if todo.priority==4 %} checked {%else%} {% endif %}>
+    <label>5</label>
+    <input type="radio" name="priority" value="5" required {%if todo.priority==5 %} checked {%else%} {% endif %}><br>
+
+    <label>Complete?</label><br>
+    <label>True</label>
+    <input type="radio" name="complete" value="True" required {%if todo.complete==True %} checked {%else%} {% endif %}>
+    <label>False</label>
+    <input type="radio" name="complete" value="False" required {%if todo.complete==False %} checked {%else%} {% endif %}><br>
+
+    <button type="submit" id="updateButton">Update Todo</button>
+    <button type="button" id="deleteButton">Delete Todo</button>
+        <a href="/todos/todo-page">Back</a>
+  </form>
+
+</div>

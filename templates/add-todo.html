@@ -1,0 +1,40 @@
+{%include 'layout.html'%}
+<label>Add a todo</label>
+<div class="container">
+  <form id="addForm">
+    <label>todo title</label><br>
+    <input type="text" name="title" required><br>
+
+    <label>todo description</label><br>
+    <textarea rows="3" name="description" required></textarea><br>
+
+    <label>Priority</label><br>
+
+    <label>1</label>
+    <input type="radio" name="priority" value="1" required>
+
+    <label>2</label>
+    <input type="radio" name="priority" value="2" required>
+
+    <label>3</label>
+    <input type="radio" name="priority" value="3" required>
+
+    <label>4</label>
+    <input type="radio" name="priority" value="4" required>
+
+    <label>5</label>
+    <input type="radio" name="priority" value="5" required><br>
+
+    <label>Complete?</label><br>
+
+    <label>True</label>
+    <input type="radio" name="complete" value="True" required>
+
+    <label>False</label>
+    <input type="radio" name="complete" value="False" required><br>
+
+    <button type="submit">Create Todo</button>
+    <a href="/todos/todo-page">Back</a>
+  </form>
+
+</div>
