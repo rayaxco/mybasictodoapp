@@ -204,7 +204,11 @@ if(editForm){
     }
 
 }
-
+document.getElementById('logoutButton').addEventListener('click',logoutClick);
+function logoutClick(){
+    logout();
+    window.location.href='/';
+}
 function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
